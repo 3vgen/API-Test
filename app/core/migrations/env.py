@@ -7,7 +7,7 @@ from alembic import context
 from app.core.config import DATABASE_URL
 from app.db.base import Base
 from app.question.model import Question # noqa
-from app.answer.model import Answer # noqa 
+from app.answer.model import Answer # noqa
 
 
 config = context.config
