@@ -22,7 +22,7 @@ async def get_all_questions_endpoint(db: AsyncSession = Depends(get_db)):
     return questions
 
 
-@router.get("/{question_id}", response_model=QuestionOut)
+@router.get("/{id}", response_model=QuestionOut)
 async def get_question_endpoint(question_id: int, db: AsyncSession = Depends(get_db)):
 
     questions = await get_question(db, question_id)
@@ -31,7 +31,7 @@ async def get_question_endpoint(question_id: int, db: AsyncSession = Depends(get
     return questions
 
 
-@router.delete("/{question_id}", response_model=QuestionOut)
+@router.delete("/{id}", response_model=QuestionOut)
 async def delete_question_endpoint(question_id: int, db: AsyncSession = Depends(get_db)):
     question = await get_question(db, question_id)
 
