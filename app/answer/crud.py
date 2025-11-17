@@ -1,5 +1,5 @@
 from typing import List
-
+from uuid import UUID
 from sqlalchemy import Row, RowMapping
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload, joinedload
@@ -7,8 +7,16 @@ from sqlalchemy.future import select
 from app.answer.model import Answer
 
 
-async def create_answer(db: AsyncSession, question_id, text: str) -> Answer:
+async def create_answer(db: AsyncSession, question_id: int, text: str) -> Answer:
     answer = Answer(question_id=question_id, text=text)
+    db.add(answer)
+    await db.commit()
+    await db.refresh(answer)
+    return answer
+
+
+async def create_answer_by_old_user(db: AsyncSession, question_id: int, text: str, user_id: UUID) -> Answer:
+    answer = Answer(question_id=question_id, text=text, user_id=user_id)
     db.add(answer)
     await db.commit()
     await db.refresh(answer)

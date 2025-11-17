@@ -26,6 +26,17 @@ async def get_question(db: AsyncSession, question_id: int) -> Question:
     return result.scalars().first()
 
 
+async def get_question_answers(db: AsyncSession, question_id: int):
+    result = await db.execute(
+        select(Question)
+        .where(Question.id == question_id)
+        .options(joinedload(Question.answers))
+    )
+    return result.scalars().first()
+
+
 async def get_all_questions(db: AsyncSession) -> List[Question]:
     result = await db.execute(select(Question))
     return result.scalars().all()
+
+
