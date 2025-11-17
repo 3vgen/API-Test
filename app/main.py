@@ -1,4 +1,5 @@
 import uvicorn
+import logging
 from fastapi import FastAPI
 from app.db.connection import engine
 from app.db.base import Base
@@ -7,18 +8,21 @@ from app.answer.routers import router as answer_router
 from contextlib import asynccontextmanager
 from app.question.model import Question
 from app.answer.model import Answer
+from logging_config import setup_logging
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Startup
     # Сюда потом добавлю подключение redis, и мб очередь сообщений
-    print("Приложение запускается.")
+    logger.info("Приложение запускается.")
     yield
     # Shutdown
     await engine.dispose()
-    print("Приложение остановлено, соединение с БД закрыто.")
+    logger.info("Приложение остановлено, соединение с БД закрыто.")
 
+setup_logging()
+logger = logging.getLogger("app")
 
 app = FastAPI(title="test", lifespan=lifespan)
 

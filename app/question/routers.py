@@ -4,13 +4,17 @@ from app.db.connection import get_db
 
 from app.question.crud import get_all_questions, create_question, get_question, delete_question, get_question_answers
 from app.question.shemas import QuestionOut, QuestionAnswersOut
+import logging
+
 
 router = APIRouter()
+logger = logging.getLogger("app")
 
 
 @router.post("/", response_model=QuestionOut)
 async def create_user_endpoint(text: str, db: AsyncSession = Depends(get_db)):
     question = await create_question(db, text)
+    logger.info(f"Создан новый вопрос {question.id}")
     return question
 
 
@@ -19,6 +23,9 @@ async def get_all_questions_endpoint(db: AsyncSession = Depends(get_db)):
     questions = await get_all_questions(db)
     if not questions:
         raise HTTPException(status_code=404, detail="Вопросов нет")
+
+    logger.info(f"Запрошены все вопросы")
+
     return questions
 
 
