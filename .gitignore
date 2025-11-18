@@ -1,4 +1,5 @@
 .env
+app.log
 
 .idea/
 
@@ -13,5 +14,4 @@ venv/
 .env/
 .venv/
 app/app.log
-
 .DS_Store

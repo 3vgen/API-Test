@@ -16,7 +16,7 @@ async def create_answer_endpoint(question_id: int, text: str, db: AsyncSession =
     return answer
 
 
-@router.post("/{question_id}/ {user_id}", response_model=AnswerOut)
+@router.post("/{question_id}/{user_id}", response_model=AnswerOut)
 async def create_answer_endpoint(question_id: int, text: str, user_id: UUID, db: AsyncSession = Depends(get_db)):
     answer = await create_answer_by_old_user(db, question_id=question_id, text=text, user_id=user_id)
     return answer

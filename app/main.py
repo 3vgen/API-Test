@@ -8,7 +8,7 @@ from app.answer.routers import router as answer_router
 from contextlib import asynccontextmanager
 from app.question.model import Question
 from app.answer.model import Answer
-from logging_config import setup_logging
+from app.logging_config import setup_logging
 
 
 @asynccontextmanager
