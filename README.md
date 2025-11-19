@@ -12,7 +12,7 @@
 ---
 
 ## Структура проекта
-Структура проекта
+```
 .
 ├── alembic.ini
 ├── app
@@ -49,6 +49,7 @@
 ├── Dockerfile
 ├── README.md
 └── requirements.txt
+```
 
 ---
 
