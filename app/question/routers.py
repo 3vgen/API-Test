@@ -2,7 +2,13 @@ from fastapi import APIRouter, Depends, HTTPException, Form, File, UploadFile
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.db.connection import get_db
 
-from app.question.crud import get_all_questions, create_question, get_question, delete_question, get_question_answers
+from app.question.crud import (
+    get_all_questions,
+    create_question,
+    get_question,
+    delete_question,
+    get_question_answers,
+)
 from app.question.shemas import QuestionOut, QuestionAnswersOut
 import logging
 
@@ -39,7 +45,9 @@ async def get_question_endpoint(question_id: int, db: AsyncSession = Depends(get
 
 
 @router.delete("/{question_id}", response_model=QuestionOut)
-async def delete_question_endpoint(question_id: int, db: AsyncSession = Depends(get_db)):
+async def delete_question_endpoint(
+    question_id: int, db: AsyncSession = Depends(get_db)
+):
     question = await get_question(db, question_id)
 
     if not question:

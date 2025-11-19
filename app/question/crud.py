@@ -38,5 +38,3 @@ async def get_question_answers(db: AsyncSession, question_id: int):
 async def get_all_questions(db: AsyncSession) -> List[Question]:
     result = await db.execute(select(Question))
     return result.scalars().all()
-
-

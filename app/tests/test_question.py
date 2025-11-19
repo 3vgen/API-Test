@@ -1,4 +1,3 @@
-
 def test_create_question(client):
     """Тест создания вопроса"""
     response = client.post("/questions/", json={"text": "Test question"})

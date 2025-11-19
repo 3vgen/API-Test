@@ -11,4 +11,6 @@ class Question(Base):
     text: Mapped[str] = mapped_column(Text, nullable=False)
     created_at: Mapped[datetime] = mapped_column(default=datetime.utcnow)
 
-    answers = relationship("Answer", back_populates="question", cascade="all, delete-orphan")
+    answers = relationship(
+        "Answer", back_populates="question", cascade="all, delete-orphan"
+    )

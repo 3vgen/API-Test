@@ -14,12 +14,12 @@ from app.logging_config import setup_logging
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Startup
-    # Сюда потом добавлю подключение redis, и мб очередь сообщений
     logger.info("Приложение запускается.")
     yield
     # Shutdown
     await engine.dispose()
     logger.info("Приложение остановлено, соединение с БД закрыто.")
+
 
 setup_logging()
 logger = logging.getLogger("app")
@@ -28,10 +28,5 @@ app = FastAPI(title="test", lifespan=lifespan)
 
 app.include_router(question_router, prefix="/questions", tags=["API"])
 app.include_router(answer_router, prefix="/answer", tags=["API"])
-if __name__ == '__main__':
-    uvicorn.run(
-        "main:app",
-        host="0.0.0.0",
-        port=80,
-        reload=True
-    )
+if __name__ == "__main__":
+    uvicorn.run("main:app", host="0.0.0.0", port=80, reload=True)

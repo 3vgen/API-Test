@@ -15,7 +15,9 @@ async def create_answer(db: AsyncSession, question_id: int, text: str) -> Answer
     return answer
 
 
-async def create_answer_by_old_user(db: AsyncSession, question_id: int, text: str, user_id: UUID) -> Answer:
+async def create_answer_by_old_user(
+    db: AsyncSession, question_id: int, text: str, user_id: UUID
+) -> Answer:
     answer = Answer(question_id=question_id, text=text, user_id=user_id)
     db.add(answer)
     await db.commit()
@@ -32,7 +34,3 @@ async def delete_answer(db: AsyncSession, answer: Answer) -> Answer:
 async def get_answer(db: AsyncSession, answer_id: int) -> Answer:
     result = await db.execute(select(Answer).filter(Answer.id == answer_id))
     return result.scalars().first()
-
-
-
-
